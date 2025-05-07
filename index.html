@@ -9,7 +9,7 @@
 
 <script>
 
-    let promError = false;
+    let promError = true;
 
     // versprechen, dass ein ereignis in zukunft ausgeführt wird
     function getPromise() {
@@ -24,10 +24,20 @@
         });;
     }
 
-    async function usePromise() {           // async und wait zusammen verwenden
-        console.log('prom1');               // prom1 wird sofort ausgeführt
-        let prom =  await getPromise();      // bei async funtion warten, bis getPromise() fertig ist und dann erst weitergehen
-        console.log('prom2');               // dann wird prom2 ausgeführt
+    // async function usePromise() {           // async und wait zusammen verwenden
+    //     console.log('prom1');               // prom1 wird sofort ausgeführt
+    //     let prom =  await getPromise();      // bei async funtion warten, bis getPromise() fertig ist und dann erst weitergehen
+    //     console.log('prom2');               // dann wird prom2 ausgeführt
+    //     console.log(prom);
+    // }
+
+    async function usePromise() {        // async und wait zusammen verwenden
+        let prom = 'nothing happend';
+        try {
+            prom =  await getPromise(); 
+        } catch (error) {
+            console.log(error);         // reject abfangen
+        }
         console.log(prom);
     }
 
