@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromiseTest</title>
+</head>
+
+<script>
+
+    let promError = false;
+
+    function getGoodPromise() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('good');
+                resolve('done_good'); // das was wir aus dem promise zurückgegen, wenn resolve
+            }, 1000);
+        });;
+    }
+
+    function getBadPromise() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log('bad');
+                reject('done_bad'); // das was wir aus dem promise zurückgegen, wenn resolve
+            }, 1000);
+        });;
+    }
+
+    function usePromise() {
+        getGoodPromise().then(
+            getBadPromise       // mehrfacher aufrur ähnlich wie mit den 3x await nur ohne nochmal warten
+        ).then(
+            getGoodPromise      // mehrfacher aufrur ähnlich wie mit den 3x await nur ohne nochmal warten
+        ).then(
+            (result) => {
+                console.log(result);
+            }
+        ).catch(
+            (error) => {
+                console.error(error);
+            }
+        )
+    }
+
+</script>
+
+<body onload="usePromise()">
+
+    <h1>PromiseTest</h1>
+
+</body>
+
+</html>
